@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,168 +7,59 @@
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <style>
-        body {
-            font-family: Arial;
-            background: #1a1a2e;
-            color: white;
-            margin: 0;
-            padding: 10px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #ffd700;
-            font-size: 1.3em;
-            margin: 5px 0;
-        }
-
-        .top-bar {
-            display: flex;
-            justify-content: space-around;
-            background: #16213e;
-            padding: 10px;
-            border-radius: 10px;
-            margin: 10px 0;
-            font-size: 0.9em;
-        }
-
-        .top-bar span {
-            color: #ffd700;
-            font-weight: bold;
-        }
-
-        .shelf {
-            background: #16213e;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 10px 0;
-        }
-
-        .shelf h3 {
-            color: #ffd700;
-            margin: 5px 0;
-        }
-
-        .shelf p {
-            margin: 3px 0;
-            font-size: 0.9em;
-        }
-
-        button {
-            padding: 10px 20px;
-            margin: 5px;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.95em;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .btn-buy {
-            background: #27ae60;
-            color: white;
-        }
-
-        .btn-sell {
-            background: #3498db;
-            color: white;
-        }
-
-        .btn-price {
-            background: #e67e22;
-            color: white;
-        }
-
-        .btn-next {
-            background: #e94560;
-            color: white;
-        }
-
-        button:active {
-            opacity: 0.8;
-        }
-
-        .customer {
-            background: #333;
-            padding: 8px;
-            border-radius: 8px;
-            margin: 8px 0;
-        }
-
-        .customer span {
-            color: #ffd700;
-        }
-
-        .log {
-            background: #0a0a1a;
-            border-radius: 8px;
-            padding: 10px;
-            margin-top: 10px;
-            text-align: left;
-            font-size: 0.8em;
-            max-height: 150px;
-            overflow-y: auto;
-            color: #aaa;
-        }
-
-        .green-text {
-            color: #27ae60;
-        }
-
-        .red-text {
-            color: #e74c3c;
-        }
-
-        .yellow-text {
-            color: #ffd700;
-        }
-
-        input[type=range] {
-            width: 80%;
-            margin: 5px;
-        }
-
-        #priceDisplay {
-            font-size: 1.2em;
-            color: #ffd700;
-        }
+        body { font-family: Arial; background: #1a1a2e; color: white; margin: 0; padding: 10px; text-align: center; }
+        h1 { color: #ffd700; font-size: 1.3em; margin: 5px 0; }
+        .top-bar { display: flex; justify-content: space-around; background: #16213e; padding: 10px; border-radius: 10px; margin: 10px 0; font-size: 0.9em; flex-wrap: wrap; }
+        .top-bar span { color: #ffd700; font-weight: bold; }
+        .shelf { background: #16213e; border-radius: 10px; padding: 10px; margin: 10px 0; }
+        .shelf h3 { color: #ffd700; margin: 5px 0; }
+        .shelf p { margin: 3px 0; font-size: 0.9em; }
+        button { padding: 10px 20px; margin: 5px; border: none; border-radius: 8px; font-size: 0.95em; cursor: pointer; font-weight: bold; }
+        .btn-buy { background: #27ae60; color: white; }
+        .btn-price { background: #e67e22; color: white; }
+        .btn-next { background: #e94560; color: white; }
+        button:active { opacity: 0.8; }
+        .log { background: #0a0a1a; border-radius: 8px; padding: 10px; margin-top: 10px; text-align: left; font-size: 0.8em; max-height: 150px; overflow-y: auto; color: #aaa; }
+        .green-text { color: #27ae60; }
+        .red-text { color: #e74c3c; }
+        .yellow-text { color: #ffd700; }
+        input[type=range] { width: 80%; margin: 5px; }
+        #priceDisplay { font-size: 1.2em; color: #ffd700; }
     </style>
 </head>
-
 <body>
     <h1>🏪 Магазин у дома</h1>
-
+    
     <div class="top-bar">
-        <div>💰 Деньги: <span id="money">5000</span> руб.</div>
-        <div>📅 День: <span id="day">1</span>/30</div>
-        <div>⭐ Репутация: <span id="reputation">50</span></div>
+        <div>💰 <span id="money">5000</span> руб.</div>
+        <div>📅 День <span id="day">1</span>/30</div>
+        <div>⭐ <span id="reputation">50</span></div>
+        <div>📦 <span id="stock">0</span> шт.</div>
     </div>
-
+    
     <div class="shelf">
-        <h3>📦 Склад</h3>
-        <p>Товара: <span id="stock">0</span> шт.</p>
-        <p>Закупочная цена: <span id="costPrice">50</span> руб/шт.</p>
-        <button class="btn-buy" onclick="buyGoods()">📥 Закупить 10 шт.</button>
+        <h3>📥 Закупка товара</h3>
+        <p>Цена закупки: <span id="costPrice">50</span> руб/шт.</p>
+        <button class="btn-buy" onclick="buyGoods(5)">+5 шт. (дешевле)</button>
+        <button class="btn-buy" onclick="buyGoods(10)">+10 шт.</button>
+        <button class="btn-buy" onclick="buyGoods(20)">+20 шт. (оптом)</button>
     </div>
-
+    
     <div class="shelf">
-        <h3>💰 Продажа</h3>
-        <p>Цена продажи: <span id="priceDisplay">75</span> руб/шт.</p>
-        <input type="range" id="priceSlider" min="0" max="200" value="75" oninput="updatePrice()">
+        <h3>💰 Цена продажи</h3>
+        <p style="font-size:1.3em;"><span id="priceDisplay">75</span> руб/шт.</p>
+        <input type="range" id="priceSlider" min="30" max="150" value="75" oninput="updatePrice()">
         <br>
-        <button class="btn-price" onclick="setLowPrice()">📉 Дешево (55)</button>
-        <button class="btn-price" onclick="setMidPrice()">📊 Средне (75)</button>
-        <button class="btn-price" onclick="setHighPrice()">📈 Дорого (110)</button>
+        <button class="btn-price" onclick="setPrice(50)">📉 50 (дёшево)</button>
+        <button class="btn-price" onclick="setPrice(75)">📊 75 (средне)</button>
+        <button class="btn-price" onclick="setPrice(100)">📈 100 (дорого)</button>
+        <button class="btn-price" onclick="setPrice(130)">💎 130 (премиум)</button>
     </div>
-
-    <div id="customersArea">
-        <p style="color:#aaa;">Нажмите «Следующий день»</p>
-    </div>
-
+    
     <button class="btn-next" onclick="nextDay()">▶ Следующий день</button>
-    <button class="btn-buy" onclick="restartGame()">🔄 Заново</button>
-
-    <div class="log" id="log">Добро пожаловать в магазин! У вас 5000 руб. и 30 дней. Заработайте максимум!</div>
+    <button class="btn-buy" onclick="restartGame()">🔄 Начать заново</button>
+    
+    <div class="log" id="log">🏪 Добро пожаловать! Заработайте максимум за 30 дней!</div>
 
     <script>
         var game = {
@@ -185,7 +75,7 @@
         function updateUI() {
             document.getElementById("money").textContent = game.money;
             document.getElementById("day").textContent = game.day;
-            document.getElementById("reputation").textContent = game.reputation;
+            document.getElementById("reputation").textContent = Math.floor(game.reputation);
             document.getElementById("stock").textContent = game.stock;
             document.getElementById("costPrice").textContent = game.costPrice;
             document.getElementById("priceDisplay").textContent = game.sellPrice;
@@ -194,7 +84,8 @@
 
         function addLog(msg, cls) {
             var log = document.getElementById("log");
-            log.innerHTML = '<span class="' + cls + '">День ' + game.day + ':</span> ' + msg + '<br>' + log.innerHTML;
+            log.innerHTML = '<span class="' + (cls || '') + '">День ' + game.day + ':</span> ' + msg + '<br>' + log.innerHTML;
+            if (log.children.length > 20) log.removeChild(log.lastChild);
         }
 
         function updatePrice() {
@@ -202,20 +93,18 @@
             updateUI();
         }
 
-        function setLowPrice() { game.sellPrice = 55; updateUI(); }
-        function setMidPrice() { game.sellPrice = 75; updateUI(); }
-        function setHighPrice() { game.sellPrice = 110; updateUI(); }
+        function setPrice(p) { game.sellPrice = p; updateUI(); }
 
-        function buyGoods() {
-            var cost = 10 * game.costPrice;
+        function buyGoods(qty) {
+            var discount = qty >= 20 ? 0.9 : qty >= 10 ? 0.95 : 1;
+            var cost = Math.floor(qty * game.costPrice * discount);
             if (game.money >= cost) {
                 game.money -= cost;
-                game.stock += 10;
-                addLog("Закупили 10 шт. за " + cost + " руб.", "green-text");
-                // Цена закупки немного растёт
-                game.costPrice = Math.floor(game.costPrice * 1.02);
+                game.stock += qty;
+                addLog("Закуплено " + qty + " шт. за " + cost + " руб.", "green-text");
+                game.costPrice = Math.floor(game.costPrice * 1.01) + 1;
             } else {
-                addLog("Не хватает денег на закупку!", "red-text");
+                addLog("Не хватает денег! Нужно " + cost + " руб.", "red-text");
             }
             updateUI();
         }
@@ -226,75 +115,81 @@
                 return;
             }
 
-            var customers = Math.floor(Math.random() * 8) + 2; // 2-10 покупателей
+            var customers = Math.floor(Math.random() * 10) + 5; // 5-15 покупателей
             var sold = 0;
             var earned = 0;
+            var missed = 0;
 
             for (var i = 0; i < customers; i++) {
-                if (game.stock <= 0) break;
-
-                // Покупатель сравнивает цену с рыночной (случайная 30-120)
-                var marketPrice = Math.floor(Math.random() * 90) + 30;
+                if (game.stock <= 0) {
+                    missed = customers - i;
+                    break;
+                }
+                
+                var marketPrice = Math.floor(Math.random() * 80) + 40; // 40-120 руб.
                 var chance = 0;
-
-                if (game.sellPrice <= marketPrice - 20) chance = 0.9;  // Очень дёшево
-                else if (game.sellPrice <= marketPrice) chance = 0.7;  // Дёшево
-                else if (game.sellPrice <= marketPrice + 15) chance = 0.4; // Дороговато
-                else chance = 0.1; // Очень дорого
-
-                // Репутация влияет
-                chance += game.reputation / 200;
-
+                
+                if (game.sellPrice <= marketPrice - 25) chance = 0.95;
+                else if (game.sellPrice <= marketPrice - 10) chance = 0.8;
+                else if (game.sellPrice <= marketPrice + 5) chance = 0.55;
+                else if (game.sellPrice <= marketPrice + 20) chance = 0.25;
+                else chance = 0.05;
+                
+                chance += game.reputation / 300;
+                if (chance > 0.95) chance = 0.95;
+                
                 if (Math.random() < chance) {
                     game.stock--;
                     game.money += game.sellPrice;
                     sold++;
                     earned += game.sellPrice;
-                    game.reputation = Math.min(100, game.reputation + 0.5);
+                    game.reputation = Math.min(100, game.reputation + 0.3);
                 } else {
-                    game.reputation = Math.max(0, game.reputation - 1);
+                    missed++;
+                    game.reputation = Math.max(10, game.reputation - 0.5);
                 }
             }
 
-            if (sold > 0) {
-                addLog(sold + " из " + customers + " купили. Выручка: " + earned + " руб.", "green-text");
-            } else if (game.stock > 0) {
-                addLog("Никто не купил! Цена太高? Репутация: " + Math.floor(game.reputation), "red-text");
-            } else {
-                addLog("Товар закончился! Нечего продавать.", "red-text");
-            }
-
-            // Ежедневные расходы
-            var rent = 100;
+            // Аренда
+            var rent = 50;
             game.money -= rent;
 
+            if (sold > 0) {
+                addLog(sold + " купили (+" + earned + " руб.), " + missed + " ушли. Аренда: -" + rent, "green-text");
+            } else {
+                addLog("Никто не купил! " + missed + " ушли. Аренда: -" + rent, "red-text");
+            }
+
             game.day++;
-            if (game.money < 0) {
-                addLog("Вы банкрот! Игра окончена.", "red-text");
+            if (game.money <= 0 && game.stock === 0) {
+                addLog("💸 БАНКРОТ!", "red-text");
                 endGame();
             }
             updateUI();
         }
 
         function endGame() {
-            var profit = game.money - 5000;
+            var profit = game.money + game.stock * game.costPrice - 5000;
             var rating = "";
-            if (profit > 20000) rating = "🏆 Легенда торговли!";
-            else if (profit > 10000) rating = "🥇 Отличный результат!";
-            else if (profit > 5000) rating = "🥈 Хороший бизнес!";
-            else if (profit > 0) rating = "🥉 Можно лучше";
-            else rating = "😅 Бизнес не пошёл...";
+            if (profit > 30000) rating = "🏆 ИМПЕРИЯ БИЗНЕСА!";
+            else if (profit > 15000) rating = "🥇 Отличный магазин!";
+            else if (profit > 5000) rating = "🥈 Неплохой доход";
+            else if (profit > 0) rating = "🥉 В следующий раз лучше";
+            else rating = "😅 Бизнес — дело сложное...";
 
-            document.getElementById("customersArea").innerHTML =
+            document.getElementById("customersArea") ? null : null;
+            var finalHTML = 
                 '<div style="background:#ffd700; color:#1a1a2e; padding:20px; border-radius:10px; margin:10px 0;">' +
-                '<h2>Игра окончена!</h2>' +
-                '<p>Деньги: <b>' + game.money + ' руб.</b></p>' +
-                '<p>Прибыль: <b>' + profit + ' руб.</b></p>' +
-                '<p style="font-size:1.2em;"><b>' + rating + '</b></p>' +
+                '<h2>🏁 Игра окончена!</h2>' +
+                '<p>💰 Деньги: <b>' + game.money + ' руб.</b></p>' +
+                '<p>📦 Товара на складе: <b>' + game.stock + ' шт.</b></p>' +
+                '<p>📊 Чистая прибыль: <b>' + profit + ' руб.</b></p>' +
+                '<p style="font-size:1.3em;"><b>' + rating + '</b></p>' +
+                '<p>⭐ Репутация: ' + Math.floor(game.reputation) + '</p>' +
                 '</div>';
-
+            
+            document.getElementById("log").innerHTML = finalHTML + document.getElementById("log").innerHTML;
             document.querySelector(".btn-next").style.display = "none";
-            addLog("Игра окончена. Прибыль: " + profit + " руб. " + rating, "yellow-text");
         }
 
         function restartGame() {
@@ -307,8 +202,7 @@
                 reputation: 50,
                 maxDays: 30
             };
-            document.getElementById("log").innerHTML = "Новая игра! У вас 5000 руб. и 30 дней.";
-            document.getElementById("customersArea").innerHTML = '<p style="color:#aaa;">Нажмите «Следующий день»</p>';
+            document.getElementById("log").innerHTML = "🏪 Новая игра! 5000 руб., 30 дней. Удачи!";
             document.querySelector(".btn-next").style.display = "inline-block";
             updateUI();
         }
@@ -316,5 +210,4 @@
         updateUI();
     </script>
 </body>
-
 </html>
